@@ -1,5 +1,5 @@
  [Unit]
-Description       = Sancho Node Service
+Description       = Sancho BPnode Service
 After             = multi-user.target 
 
  [Service]
