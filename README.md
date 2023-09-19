@@ -87,12 +87,12 @@ sudo chmod 644 sancho-bp.service
 
 ### 2. Enable the Sancho-BP Service:
 ```
-sudo systemctl enable sancho-node.service
+sudo systemctl enable sancho-bp.service
 ```
 
 ### 3. Start your Sancho-BP Service
 ```
-sudo systemctl start sancho-node.service
+sudo systemctl start sancho-bp.service
 ```
 
 ### 4. Check the logs if everything is working as expected
