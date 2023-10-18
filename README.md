@@ -187,3 +187,12 @@ cardano-cli conway governance query gov-state --testnet-magic 4 | jq -r --arg cu
     }
 ' | jq -s 'sort_by(.expiresAfter)'
 ```
+
+#### Show the anchor, deposit and the epoch expiry value for inactivity of a given DRep Key :
+
+Replace `058b60ead63f667c0ff5b40e269dd1f05ce3a804256735ad4eddce20` with the hex drep id of your interest.
+
+```
+cardano-cli conway governance query gov-state --testnet-magic 4 | jq -r --arg dRepKey "keyHash-058b60ead63f667c0ff5b40e269dd1f05ce3a804256735ad4eddce20" '
+  .gov.curGovSnapshots.prevDRepsState'
+```
