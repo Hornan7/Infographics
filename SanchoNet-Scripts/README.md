@@ -1,4 +1,4 @@
-# Commands and Scripts for SanchoNet
+# SanchoNet commands and scripts
 
 ### To query a specific governance action
 
