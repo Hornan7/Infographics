@@ -15,4 +15,4 @@ wget https://raw.githubusercontent.com/Hornan7/Documentation/main/SanchoNet-Scri
 sudo chmod 700 drep-vote.sh
 ```
 Then you can run the script using `./drep-vote.sh` command. 
-You can see the content of the script [here](https://github.com/Hornan7/Documentation/blob/main/SanchoNet-Scripts/drep-vote.sh)
+You can see the content of the script [here](https://raw.githubusercontent.com/Hornan7/Documentation/main/SanchoNet-Scripts/drep-vote.sh)
