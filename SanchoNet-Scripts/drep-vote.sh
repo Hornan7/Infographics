@@ -8,7 +8,9 @@ read INDEX
 sleep 1
 echo "What is your Vote? yes,no,abstain?"
 read VOTE
-echo "Creating Vote"
+echo "--------------------------------"
+echo "         Creating Vote"
+echo "--------------------------------"
 sleep 1
 
 #create the vote file
@@ -19,7 +21,8 @@ cardano-cli conway governance vote create \
 --governance-action-index "${INDEX}" \
 --drep-verification-key-file drep.vkey \
 --out-file action.vote
-echo "Building Transaction"
+echo "      Building Transaction"
+echo "--------------------------------"
 sleep 1
 
 #build the Transaction
@@ -31,7 +34,8 @@ cardano-cli conway transaction build \
 --vote-file action.vote \
 --witness-override 2 \
 --out-file vote-tx.raw
-echo "Signing Transaction"
+echo "      Signing Transaction"
+exho "--------------------------------"
 sleep 1
 
 #Sign the transaction
@@ -41,7 +45,9 @@ cardano-cli transaction sign --tx-body-file vote-tx.raw \
 --signing-key-file payment.skey \
 --testnet-magic 4 \
 --out-file vote-tx.signed
-echo "Submiting Transaction On-Chain"
+
+echo " Submiting Transaction On-Chain"
+exho "--------------------------------"
 sleep 1
 
 #Submit the Transaction
