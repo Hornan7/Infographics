@@ -35,7 +35,7 @@ cardano-cli conway transaction build \
 --witness-override 2 \
 --out-file vote-tx.raw
 echo "      Signing Transaction"
-exho "--------------------------------"
+echo "--------------------------------"
 sleep 1
 
 #Sign the transaction
@@ -47,7 +47,7 @@ cardano-cli transaction sign --tx-body-file vote-tx.raw \
 --out-file vote-tx.signed
 
 echo " Submiting Transaction On-Chain"
-exho "--------------------------------"
+echo "--------------------------------"
 sleep 1
 
 #Submit the Transaction
