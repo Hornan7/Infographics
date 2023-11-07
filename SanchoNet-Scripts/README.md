@@ -11,7 +11,7 @@ Replace *YOUR_GOVERNANCE_ACTION_WITH_ITS_INDEX* with for example: `df58f714c0765
 
 From your SanchoNet keys directory:
 ```
-wget https://raw.githubusercontent.com/Hornan7/Documentation/main/SanchoNet-Scripts/drep-vote.sh
+curl -O -J https://raw.githubusercontent.com/Hornan7/Documentation/main/SanchoNet-Scripts/drep-vote.sh
 sudo chmod 700 drep-vote.sh
 ```
 Then you can run the script using `./drep-vote.sh` command. 
