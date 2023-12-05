@@ -3,7 +3,7 @@
 echo "What is the governance action ID?"
 read GOVID
 sleep 1
-echo "How many indexes does this action have?"
+echo "What is its highest index number?"
 read INDEXNO
 sleep 1
 echo "What is your Vote? yes,no,abstain?"
@@ -27,8 +27,8 @@ while true; do
                 --out-file action-votes/action${INDEXNO}.vote
                 sleep 1
             echo " --vote-file action-votes/action${INDEXNO}.vote" >> action-votes/txvar.txt
+            echo "         Preparing vote number ${INDEXNO}"
             INDEXNO=$((INDEXNO-1))
-            echo "Preparing vote number ${INDEXNO}"
         else
                 cardano-cli conway governance vote create \
                 --${VOTE} \
@@ -37,12 +37,13 @@ while true; do
                 --drep-verification-key-file drep.vkey \
                 --out-file action-votes/action${INDEXNO}.vote
                 sleep 1
+                echo "         Preparing vote number ${INDEXNO}"
                 echo " --vote-file action-votes/action${INDEXNO}.vote" >> action-votes/txvar.txt
                 break #breaking the loop
         fi
 done
 
-
+echo "------------------------------------------"
 echo "           Building Transaction"
 echo "------------------------------------------"
 sleep 1
