@@ -1,47 +1,73 @@
 #!/bin/bash
 
-echo "What is the governance action ID?"
-read GOVID
-sleep 0.5
-echo "What is its highest index number?"
-read INDEXNO
-sleep 0.5
-echo "What is your Vote? yes,no,abstain?"
-read VOTE
-echo "------------------------------------------"
-echo "              Creating Vote"
-echo "------------------------------------------"
-sleep 0.5
-#create the action file directory   
-mkdir action-votes 2>/dev/null
+MOREINDEX=1
+# Prompt for more governance actions
+gov_action_prompt() {
+        echo -e "\nDo you want to vote on another governance action? (yes/no): "
+        read next_action_prompt
+        case $next_action_prompt in      
+          yes)
+               MOREINDEX=$((MOREINDEX+1))
+               building_action_vote                  
+          ;;
+          no)
+  
+          ;;
+          *)
+             echo "Invalid option."
+             sleep 1 # Add a small delay to allow reading of "Invalid option" before restarting the function
+             gov_action_prompt
+          ;;
+        esac    
+}       
 
-#create the vote files
-while true; do
-        if [ "$INDEXNO" != "0" ]; then
-                cardano-cli conway governance vote create \
-                --${VOTE} \
-                --governance-action-tx-id "${GOVID}" \
-                --governance-action-index "${INDEXNO}" \
-                --drep-verification-key-file drep.vkey \
-                --out-file action-votes/action${INDEXNO}.vote
-                sleep 0.5
-            echo " --vote-file action-votes/action${INDEXNO}.vote" >> action-votes/txvar.txt
-            echo "         Preparing vote number ${INDEXNO}"
-            INDEXNO=$((INDEXNO-1))
-        else
-                cardano-cli conway governance vote create \
-                --${VOTE} \
-                --governance-action-tx-id "${GOVID}" \
-                --governance-action-index "${INDEXNO}" \
-                --drep-verification-key-file drep.vkey \
-                --out-file action-votes/action${INDEXNO}.vote
-                sleep 0.5
-                echo "         Preparing vote number ${INDEXNO}"
-                echo " --vote-file action-votes/action${INDEXNO}.vote" >> action-votes/txvar.txt
-                break #breaking the loop
-        fi
-done
+building_action_vote() {
+    echo "What is the governance action ID?"
+    read GOVID
+    sleep 0.5
+    echo "What is its highest index number?"
+    read INDEXNO
+    sleep 0.5
+    echo "What is your Vote? yes,no,abstain?"
+    read VOTE
+    echo "------------------------------------------"
+    echo "              Creating Vote"
+    echo "------------------------------------------"
+    sleep 0.5
+    
+    #create the action file directory   
+    mkdir action-votes 2>/dev/null
 
+    #create the vote files
+    while true; do
+            if [ "$INDEXNO" != "0" ]; then
+                    cardano-cli conway governance vote create \
+                    --${VOTE} \
+                    --governance-action-tx-id "${GOVID}" \
+                    --governance-action-index "${INDEXNO}" \
+                    --drep-verification-key-file drep.vkey \
+                    --out-file action-votes/action${MOREINDEX}-${INDEXNO}.vote
+                echo " --vote-file action-votes/action${MOREINDEX}-${INDEXNO}.vote" >> action-votes/txvar.txt
+                echo -ne "\rPreparing vote number ${INDEXNO} of action ${MOREINDEX}   "
+                sleep 0.2
+                INDEXNO=$((INDEXNO-1))
+            else
+                    cardano-cli conway governance vote create \
+                    --${VOTE} \
+                    --governance-action-tx-id "${GOVID}" \
+                    --governance-action-index "${INDEXNO}" \
+                    --drep-verification-key-file drep.vkey \
+                    --out-file action-votes/action${MOREINDEX}-${INDEXNO}.vote
+                    echo -ne "\rPreparing vote number ${INDEXNO} of action ${MOREINDEX}   "
+                    echo " --vote-file action-votes/action${MOREINDEX}-${INDEXNO}.vote" >> action-votes/txvar.txt
+                    sleep 1
+                    gov_action_prompt
+                    break  
+            fi
+    done
+}
+
+building_action_vote           
 echo "------------------------------------------"
 echo "           Building Transaction"
 echo "------------------------------------------"
