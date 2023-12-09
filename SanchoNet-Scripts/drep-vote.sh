@@ -1,5 +1,6 @@
 #!/bin/bash
 
+MOREINDEX=1
 # Prompt for more governance actions
 gov_action_prompt() {
         read -p "Do you want to vote on another governance action? (yes/no): " next_action_prompt
@@ -46,8 +47,8 @@ building_action_vote() {
                     --drep-verification-key-file drep.vkey \
                     --out-file action-votes/action${MOREINDEX}-${INDEXNO}.vote
                     sleep 0.5
-                echo " --vote-file action-votes/action${INDEXNO}.vote" >> action-votes/txvar.txt
-                echo "         Preparing vote number ${INDEXNO}"
+                echo " --vote-file action-votes/action${MOREINDEX}-${INDEXNO}.vote" >> action-votes/txvar.txt
+                echo "Preparing vote number ${INDEXNO} of action ${MOREINDEX}"
                 INDEXNO=$((INDEXNO-1))
             else
                     cardano-cli conway governance vote create \
@@ -55,9 +56,9 @@ building_action_vote() {
                     --governance-action-tx-id "${GOVID}" \
                     --governance-action-index "${INDEXNO}" \
                     --drep-verification-key-file drep.vkey \
-                    --out-file action-votes/action${INDEXNO}.vote
+                    --out-file action-votes/action${MOREINDEX}-${INDEXNO}.vote
                     sleep 0.5
-                    echo "         Preparing vote number ${INDEXNO}"
+                    echo "Preparing vote number ${INDEXNO} of action ${MOREINDEX}"
                     echo " --vote-file action-votes/action${MOREINDEX}-${INDEXNO}.vote" >> action-votes/txvar.txt
                     gov_action_prompt
                     break  
