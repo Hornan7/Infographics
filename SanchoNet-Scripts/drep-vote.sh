@@ -48,6 +48,7 @@ building_action_vote() {
                     --out-file action-votes/action${MOREINDEX}-${INDEXNO}.vote
                 echo " --vote-file action-votes/action${MOREINDEX}-${INDEXNO}.vote" >> action-votes/txvar.txt
                 echo -e "Preparing vote number ${INDEXNO} of action ${MOREINDEX}"
+                sleep 0.2
                 INDEXNO=$((INDEXNO-1))
             else
                     cardano-cli conway governance vote create \
