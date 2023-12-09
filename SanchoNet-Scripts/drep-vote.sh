@@ -3,7 +3,8 @@
 MOREINDEX=1
 # Prompt for more governance actions
 gov_action_prompt() {
-        read -p "Do you want to vote on another governance action? (yes/no): " next_action_prompt
+        echo -e "\nDo you want to vote on another governance action? (yes/no): "
+        read next_action_prompt
         case $next_action_prompt in      
           yes)
                MOREINDEX=$((MOREINDEX+1))
@@ -47,7 +48,7 @@ building_action_vote() {
                     --drep-verification-key-file drep.vkey \
                     --out-file action-votes/action${MOREINDEX}-${INDEXNO}.vote
                 echo " --vote-file action-votes/action${MOREINDEX}-${INDEXNO}.vote" >> action-votes/txvar.txt
-                echo -e "\r\033[KPreparing vote number ${INDEXNO} of action ${MOREINDEX}"
+                echo -ne "\rPreparing vote number ${INDEXNO} of action ${MOREINDEX}   "
                 sleep 0.2
                 INDEXNO=$((INDEXNO-1))
             else
@@ -57,7 +58,7 @@ building_action_vote() {
                     --governance-action-index "${INDEXNO}" \
                     --drep-verification-key-file drep.vkey \
                     --out-file action-votes/action${MOREINDEX}-${INDEXNO}.vote
-                    echo -e "\r\033[KPreparing vote number ${INDEXNO} of action ${MOREINDEX}"
+                    echo -ne "\rPreparing vote number ${INDEXNO} of action ${MOREINDEX}   "
                     echo " --vote-file action-votes/action${MOREINDEX}-${INDEXNO}.vote" >> action-votes/txvar.txt
                     sleep 1
                     gov_action_prompt
