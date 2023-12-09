@@ -1,47 +1,69 @@
 #!/bin/bash
 
-echo "What is the governance action ID?"
-read GOVID
-sleep 0.5
-echo "What is its highest index number?"
-read INDEXNO
-sleep 0.5
-echo "What is your Vote? yes,no,abstain?"
-read VOTE
-echo "------------------------------------------"
-echo "              Creating Vote"
-echo "------------------------------------------"
-sleep 0.5
-#create the action file directory   
-mkdir action-votes 2>/dev/null
+building_action_vote
+building_action_vote() {
+    echo "What is the governance action ID?"
+    read GOVID
+    sleep 0.5
+    echo "What is its highest index number?"
+    read INDEXNO
+    sleep 0.5
+    echo "What is your Vote? yes,no,abstain?"
+    read VOTE
+    echo "------------------------------------------"
+    echo "              Creating Vote"
+    echo "------------------------------------------"
+    sleep 0.5
+    
+    #create the action file directory   
+    mkdir action-votes 2>/dev/null
 
-#create the vote files
-while true; do
-        if [ "$INDEXNO" != "0" ]; then
-                cardano-cli conway governance vote create \
-                --${VOTE} \
-                --governance-action-tx-id "${GOVID}" \
-                --governance-action-index "${INDEXNO}" \
-                --drep-verification-key-file drep.vkey \
-                --out-file action-votes/action${INDEXNO}.vote
-                sleep 0.5
-            echo " --vote-file action-votes/action${INDEXNO}.vote" >> action-votes/txvar.txt
-            echo "         Preparing vote number ${INDEXNO}"
-            INDEXNO=$((INDEXNO-1))
-        else
-                cardano-cli conway governance vote create \
-                --${VOTE} \
-                --governance-action-tx-id "${GOVID}" \
-                --governance-action-index "${INDEXNO}" \
-                --drep-verification-key-file drep.vkey \
-                --out-file action-votes/action${INDEXNO}.vote
-                sleep 0.5
-                echo "         Preparing vote number ${INDEXNO}"
+    #create the vote files
+    while true; do
+            if [ "$INDEXNO" != "0" ]; then
+                    cardano-cli conway governance vote create \
+                    --${VOTE} \
+                    --governance-action-tx-id "${GOVID}" \
+                    --governance-action-index "${INDEXNO}" \
+                    --drep-verification-key-file drep.vkey \
+                    --out-file action-votes/action${INDEXNO}.vote
+                    sleep 0.5
                 echo " --vote-file action-votes/action${INDEXNO}.vote" >> action-votes/txvar.txt
-                break #breaking the loop
-        fi
-done
+                echo "         Preparing vote number ${INDEXNO}"
+                INDEXNO=$((INDEXNO-1))
+            else
+                    cardano-cli conway governance vote create \
+                    --${VOTE} \
+                    --governance-action-tx-id "${GOVID}" \
+                    --governance-action-index "${INDEXNO}" \
+                    --drep-verification-key-file drep.vkey \
+                    --out-file action-votes/action${INDEXNO}.vote
+                    sleep 0.5
+                    echo "         Preparing vote number ${INDEXNO}"
+                    echo " --vote-file action-votes/action${INDEXNO}.vote" >> action-votes/txvar.txt
+                    gov_action_prompt
+                    break  
+            fi
+    done
+}
 
+# Prompt for more governance actions
+gov_action_prompt() {
+        read -p "Do you want to vote on another governance action? (yes/no): " next_action_prompt
+        case $next_action_prompt in      
+          yes)
+               building_action_vote                  
+          ;;
+          no)
+  
+          ;;
+          *)
+             echo "Invalid option."
+             sleep 1 # Add a small delay to allow reading of "Invalid option" before restarting the function
+             gov_action_prompt
+          ;;
+        esac    
+}                
 echo "------------------------------------------"
 echo "           Building Transaction"
 echo "------------------------------------------"
