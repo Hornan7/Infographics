@@ -47,7 +47,7 @@ building_action_vote() {
                     --drep-verification-key-file drep.vkey \
                     --out-file action-votes/action${MOREINDEX}-${INDEXNO}.vote
                 echo " --vote-file action-votes/action${MOREINDEX}-${INDEXNO}.vote" >> action-votes/txvar.txt
-                echo -e "\033[KPreparing vote number ${INDEXNO} of action ${MOREINDEX}"
+                echo -e "\r\033[KPreparing vote number ${INDEXNO} of action ${MOREINDEX}"
                 sleep 0.2
                 INDEXNO=$((INDEXNO-1))
             else
@@ -57,7 +57,7 @@ building_action_vote() {
                     --governance-action-index "${INDEXNO}" \
                     --drep-verification-key-file drep.vkey \
                     --out-file action-votes/action${MOREINDEX}-${INDEXNO}.vote
-                    echo -e "\033[KPreparing vote number ${INDEXNO} of action ${MOREINDEX}"
+                    echo -e "\r\033[KPreparing vote number ${INDEXNO} of action ${MOREINDEX}"
                     echo " --vote-file action-votes/action${MOREINDEX}-${INDEXNO}.vote" >> action-votes/txvar.txt
                     sleep 1
                     gov_action_prompt
