@@ -5,6 +5,7 @@ gov_action_prompt() {
         read -p "Do you want to vote on another governance action? (yes/no): " next_action_prompt
         case $next_action_prompt in      
           yes)
+               MOREINDEX=$((MOREINDEX+1))
                building_action_vote                  
           ;;
           no)
@@ -43,7 +44,7 @@ building_action_vote() {
                     --governance-action-tx-id "${GOVID}" \
                     --governance-action-index "${INDEXNO}" \
                     --drep-verification-key-file drep.vkey \
-                    --out-file action-votes/action${INDEXNO}.vote
+                    --out-file action-votes/action${MOREINDEX}-${INDEXNO}.vote
                     sleep 0.5
                 echo " --vote-file action-votes/action${INDEXNO}.vote" >> action-votes/txvar.txt
                 echo "         Preparing vote number ${INDEXNO}"
@@ -57,7 +58,7 @@ building_action_vote() {
                     --out-file action-votes/action${INDEXNO}.vote
                     sleep 0.5
                     echo "         Preparing vote number ${INDEXNO}"
-                    echo " --vote-file action-votes/action${INDEXNO}.vote" >> action-votes/txvar.txt
+                    echo " --vote-file action-votes/action${MOREINDEX}-${INDEXNO}.vote" >> action-votes/txvar.txt
                     gov_action_prompt
                     break  
             fi
