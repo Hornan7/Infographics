@@ -1,6 +1,23 @@
 #!/bin/bash
 
-building_action_vote
+# Prompt for more governance actions
+gov_action_prompt() {
+        read -p "Do you want to vote on another governance action? (yes/no): " next_action_prompt
+        case $next_action_prompt in      
+          yes)
+               building_action_vote                  
+          ;;
+          no)
+  
+          ;;
+          *)
+             echo "Invalid option."
+             sleep 1 # Add a small delay to allow reading of "Invalid option" before restarting the function
+             gov_action_prompt
+          ;;
+        esac    
+}       
+
 building_action_vote() {
     echo "What is the governance action ID?"
     read GOVID
@@ -47,23 +64,7 @@ building_action_vote() {
     done
 }
 
-# Prompt for more governance actions
-gov_action_prompt() {
-        read -p "Do you want to vote on another governance action? (yes/no): " next_action_prompt
-        case $next_action_prompt in      
-          yes)
-               building_action_vote                  
-          ;;
-          no)
-  
-          ;;
-          *)
-             echo "Invalid option."
-             sleep 1 # Add a small delay to allow reading of "Invalid option" before restarting the function
-             gov_action_prompt
-          ;;
-        esac    
-}                
+building_action_vote           
 echo "------------------------------------------"
 echo "           Building Transaction"
 echo "------------------------------------------"
