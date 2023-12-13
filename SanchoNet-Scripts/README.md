@@ -8,4 +8,4 @@ curl -O -J https://raw.githubusercontent.com/Hornan7/Documentation/main/SanchoNe
 sudo chmod 700 drep-vote.sh
 ```
 Then you can run the script using `./drep-vote.sh` command. 
-You can see the content of the script [here]([https://raw.githubusercontent.com/Hornan7/Documentation/main/SanchoNet-Scripts/drep-vote.sh](https://raw.githubusercontent.com/Hornan7/Documentation/main/SanchoNet-Scripts/drep-vote.sh)
+You can see the content of the script [here](https://raw.githubusercontent.com/Hornan7/Documentation/main/SanchoNet-Scripts/drep-vote.sh)
