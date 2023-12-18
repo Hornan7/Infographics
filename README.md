@@ -4,7 +4,9 @@
 To download all our documents on the CIP-1694, the CLI, as well as our SanchoNet scripts:
 ```
 git clone https://github.com/Hornan7/Documentation.git
-``` 
+```
+You can now use and share all our all our educational documents.
+
 ## (Optional) To download the entire repository and move the SanchoNet scripts in your keys directory:
 ### Setting the PATH to the keys folder
 ```
